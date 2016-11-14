@@ -13,10 +13,6 @@ module.exports = {
         publicPath: '/dist/',
         filename: 'build.js'
     },
-    externals: {
-        "jquery": "jQuery",
-        "foundation": "Foundation"
-    },
     resolveLoader: {
         root: path.join(__dirname, 'node_modules'),
     },
