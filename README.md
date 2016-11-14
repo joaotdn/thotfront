@@ -1,16 +1,16 @@
-# Vue.js and Foundation 6 with Webpack 2 Boilerplate
+# THOT Boilerplate
 
-> Boilerplate for setting up Vue.js and Foundation 6 with webpack 2.
+> Boilerplate para o ambiente de produção do THOT
 
-## Build Setup
+## Setup
 
 ``` bash
-# install dependencies
+# Dependências
 npm install
 
-# serve with hot reload at localhost:8080
+# Servidor com hot reload
 npm run dev
 
-# build for production with minification
+# Build para produção
 npm run build
 ```
