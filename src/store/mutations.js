@@ -27,6 +27,10 @@ export default {
         state.usuarios = payload
     },
 
+    'PROFESSOR_ALOCADO' (state, payload) {
+        state.alocado = payload
+    },
+
     /**
      * Retorna lista com todos os cursos
      * @param state

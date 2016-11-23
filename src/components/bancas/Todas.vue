@@ -65,7 +65,7 @@
                                 <div class="form-group">
                                     <label for="inputOrientador" class="col-lg-2 control-label">Orientador</label>
                                     <div class="col-lg-10">
-                                        <select name="curso" class="form-control" id="inputOrientador">
+                                        <select v-model="projeto.orientador_id" name="curso" class="form-control" id="inputOrientador">
                                             <option v-for="user in usuarios" :value="user.id" v-if="user.role !== 'admin'">{{user.name}}</option>
                                         </select>
                                     </div>
@@ -75,11 +75,7 @@
                                     <label for="areas" class="col-lg-2 control-label">Área de interesse principal</label>
                                     <div class="col-lg-10">
                                         <select class="form-control" id="areas" v-model="projeto.area_primaria">
-                                            <option>Segurança da informação</option>
-                                            <option>Programação</option>
-                                            <option>Análise de sistemas</option>
-                                            <option>Redes</option>
-                                            <option>Gestão em TI</option>
+                                            <option v-for="area in areas">{{ area }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -88,12 +84,15 @@
                                     <label for="areas_sec" class="col-lg-2 control-label">Área de interesse secundária</label>
                                     <div class="col-lg-10">
                                         <select class="form-control" id="areas_sec" v-model="projeto.area_secundaria">
-                                            <option>Segurança da informação</option>
-                                            <option>Programação</option>
-                                            <option>Análise de sistemas</option>
-                                            <option>Redes</option>
-                                            <option>Gestão em TI</option>
+                                            <option v-for="area in areas">{{ area }}</option>
                                         </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputAluno" class="col-lg-2 control-label">Resumo</label>
+                                    <div class="col-lg-10">
+                                        <textarea v-model="projeto.resumo" class="form-control"></textarea>
                                     </div>
                                 </div>
 
@@ -188,7 +187,8 @@
             usuario: 'usuario',
             usuarioLogado: 'usuarioLogado',
             usuarios: 'usuarios',
-            cursos: 'cursos'
+            cursos: 'cursos',
+            areas: 'areas'
         })
 
     }

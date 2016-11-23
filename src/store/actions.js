@@ -15,6 +15,11 @@ export default {
         context.commit('LISTAR_USUARIOS', payload)
     },
 
+    professorAlocado (context, payload) {
+        context.commit('PROFESSOR_ALOCADO', payload)
+    },
+
+
     /**
      * Cursos
      */

@@ -21,12 +21,12 @@
                 </div>
             </div>
 
-            <!--<div class="form-group">-->
-                <!--<label for="textArea" class="col-lg-2 control-label">Descrição</label>-->
-                <!--<div class="col-lg-10">-->
-                    <!--<textarea class="form-control" name="descricao" rows="3" id="textArea" placeholder="Opcional"></textarea>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="form-group">
+                <label for="textArea" class="col-lg-2 control-label">Resumo</label>
+                <div class="col-lg-10">
+                    <textarea v-model="projeto.resumo" class="form-control" name="descricao" rows="3" id="textArea" placeholder=""></textarea>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label for="inputCurso" class="col-lg-2 control-label">Curso</label>
@@ -47,27 +47,19 @@
             </div>
 
             <div class="form-group">
-                <label for="areas" class="col-lg-2 control-label">Área de interesse principal</label>
+                <label class="col-lg-2 control-label">Área de interesse principal</label>
                 <div class="col-lg-10">
                     <select v-model="projeto.area_primaria" class="form-control" id="areas">
-                        <option>Segurança da informação</option>
-                        <option>Programação</option>
-                        <option>Análise de sistemas</option>
-                        <option>Redes</option>
-                        <option>Gestão em TI</option>
+                        <option v-for="area in areas">{{ area }}</option>
                     </select>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="areas_sec" class="col-lg-2 control-label">Área de interesse secundária</label>
+                <label class="col-lg-2 control-label">Área de interesse secundária</label>
                 <div class="col-lg-10">
-                    <select v-model="projeto.area_secundaria" class="form-control" id="areas_sec">
-                        <option>Segurança da informação</option>
-                        <option>Programação</option>
-                        <option>Análise de sistemas</option>
-                        <option>Redes</option>
-                        <option>Gestão em TI</option>
+                    <select v-model="projeto.area_secundaria" class="form-control">
+                        <option v-for="area in areas">{{ area }}</option>
                     </select>
                 </div>
             </div>
@@ -102,6 +94,7 @@
             $('.date').mask('00/00/0000');
             $('.time').mask('00:00');
         },
+
         beforeRouteEnter (to, from, next) {
             next(vm => {
                 if(vm.usuarioLogado == false || vm.usuario.role !== 'admin') {
@@ -122,7 +115,8 @@
                     area_secundaria: '',
                     data: '',
                     hora: '',
-                    sala: ''
+                    sala: '',
+                    resumo: ''
                 }
 
             }
@@ -142,7 +136,8 @@
                     area_secundaria: this.projeto.area_secundaria,
                     data: this.projeto.data,
                     hora: this.projeto.hora,
-                    sala: this.projeto.sala
+                    sala: this.projeto.sala,
+                    resumo: this.projeto.resumo,
 
                 }, {headers: getHeader()})
                         .then((res) => {
@@ -167,7 +162,8 @@
             usuarios: 'usuarios',
             usuario: 'usuario',
             usuarioLogado: 'usuarioLogado',
-            projetos: 'projetos'
+            projetos: 'projetos',
+            areas: 'areas'
         })
     }
 </script>

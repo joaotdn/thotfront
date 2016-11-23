@@ -57,11 +57,7 @@
                                     <label for="areas" class="col-lg-2 control-label">Área de interesse principal</label>
                                     <div class="col-lg-10">
                                         <select class="form-control" id="areas" v-model="professor.area_p">
-                                            <option>Segurança da informação</option>
-                                            <option>Programação</option>
-                                            <option>Análise de sistemas</option>
-                                            <option>Redes</option>
-                                            <option>Gestão em TI</option>
+                                            <option v-for="area in areas">{{ area }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -70,11 +66,7 @@
                                     <label for="areas_sec" class="col-lg-2 control-label">Área de interesse secundária</label>
                                     <div class="col-lg-10">
                                         <select class="form-control" id="areas_sec" v-model="professor.area_s">
-                                            <option>Segurança da informação</option>
-                                            <option>Programação</option>
-                                            <option>Análise de sistemas</option>
-                                            <option>Redes</option>
-                                            <option>Gestão em TI</option>
+                                            <option v-for="area in areas">{{ area }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -155,7 +147,7 @@
                    email: this.professor.email,
                    area_primaria: this.professor.area_p,
                    area_secundaria: this.professor.area_s,
-                   role: this.professor.role
+                   role: this.professor.role,
 
                }, {headers: getHeader()})
                        .then((res) => {
@@ -182,7 +174,8 @@
             cursos: 'cursos',
             usuario: 'usuario',
             usuarioLogado: 'usuarioLogado',
-            usuarios: 'usuarios'
+            usuarios: 'usuarios',
+            areas: 'areas'
         })
     }
 </script>

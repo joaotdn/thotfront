@@ -30,11 +30,7 @@
                 <label for="areas" class="col-lg-2 control-label">Área de interesse principal</label>
                 <div class="col-lg-10">
                     <select class="form-control" id="areas" v-model="novoUsuario.areaP">
-                        <option>Segurança da informação</option>
-                        <option>Programação</option>
-                        <option>Análise de sistemas</option>
-                        <option>Redes</option>
-                        <option>Gestão em TI</option>
+                        <option v-for="area in areas">{{ area }}</option>
                     </select>
                 </div>
             </div>
@@ -43,11 +39,7 @@
                 <label for="areas_sec" class="col-lg-2 control-label">Área de interesse secundária</label>
                 <div class="col-lg-10">
                     <select class="form-control" id="areas_sec" v-model="novoUsuario.areaS">
-                        <option>Segurança da informação</option>
-                        <option>Programação</option>
-                        <option>Análise de sistemas</option>
-                        <option>Redes</option>
-                        <option>Gestão em TI</option>
+                        <option v-for="area in areas">{{ area }}</option>
                     </select>
                 </div>
             </div>
@@ -55,7 +47,7 @@
             <div class="form-group">
                 <label class="col-lg-2 control-label">Permissões</label>
                 <div class="col-lg-10">
-                    <label><input type="radio"  name="permissao" value="professor" v-model="novoUsuario.permissao">Professor</label><br>
+                    <label><input type="radio"  name="permissao" value="professor" v-model="novoUsuario.permissao">Professor examinador</label><br>
                     <label><input type="radio" name="permissao" value="professor-moderador" v-model="novoUsuario.permissao">Professor moderador</label>
                 </div>
             </div>
@@ -121,7 +113,8 @@
         computed: mapState({
             cursos: 'cursos',
             usuario: 'usuario',
-            usuarioLogado: 'usuarioLogado'
+            usuarioLogado: 'usuarioLogado',
+            areas: 'areas'
         })
 
     }

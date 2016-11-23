@@ -45,7 +45,11 @@
 
                     <div class="navbar-form navbar-right">
                         <div class="btn-group" v-if="usuario.role === 'professor' || usuario.role === 'professor-moderador'">
-                            <router-link :to="{name: 'bancas_enviadas'}" active-class="current" class="btn btn-primary"><i class="fa fa-user fa-fw"></i> {{ usuario.nome }}</router-link>
+                            <router-link :to="{name: 'professor'}" active-class="current" class="btn btn-primary">
+                                <span @click="showHome">
+                                    <i class="fa fa-user fa-fw"></i> {{ usuario.nome }}
+                                </span>
+                            </router-link>
                             <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><router-link :to="{name: 'bancas_enviadas'}">Minha conta</router-link></li>
@@ -63,9 +67,12 @@
                         </div>
 
 
-                        <router-link :to="{name: 'validar_bancas'}"  v-if="usuario.role === 'professor-moderador'" class="btn btn-warning" >
-                            <i class="fa fa-check-square-o"></i>
-                            Validar bancas</router-link>
+                        <router-link :to="{name: 'validar_bancas'}"  v-if="usuario.role === 'professor-moderador'" class="btn btn-warning">
+                            <span @click="hideHome">
+                                <i class="fa fa-check-square-o"></i>
+                            Validar bancas
+                            </span>
+                            </router-link>
                     </div>
                 </div>
 
@@ -74,8 +81,9 @@
 
         <div class="container">
             <router-view></router-view>
-            <home-professor v-if="$store.state.usuarioLogado && $store.state.usuario.role === 'professor' || $store.state.usuario.role === 'professor-moderador'"></home-professor>
+            <!--<home-professor :show-tabela="view_moderador" v-if="$store.state.usuarioLogado && $store.state.usuario.role === 'professor' || $store.state.usuario.role === 'professor-moderador'"></home-professor>-->
         </div>
+
     </div>
 </template>
 
@@ -85,6 +93,11 @@
     import HomeProfessor from './HomeProfessor.vue'
 
     export default {
+        data() {
+            return {
+                view_moderador: false
+            }
+        },
 
         beforeRouteEnter (to, from, next) {
             next(vm => {
@@ -99,10 +112,15 @@
                                 nome: res.body.user.name,
                                 email: res.body.user.email,
                                 id: res.body.user.id,
-                                role: res.body.user.role
+                                role: res.body.user.role,
+                                area_primaria: res.body.user.area_primaria,
+                                area_secundaria: res.body.user.area_secundaria,
                             }
                             vm.atualizarUsuario(usuario)
                             vm.logarUsuario(true)
+
+                            if( res.body.user.role === 'professor' || res.body.user.role === 'professor-moderador' )
+                                vm.$router.push({name: 'professor'})
 
                         }, (res) => {
                             vm.$router.push({name: 'login'})
@@ -142,6 +160,12 @@
                 this.logarUsuario(false)
                 window.localStorage.setItem('id_token','')
                 this.$router.push({name: 'login'})
+            },
+            hideHome() {
+                this.view_moderador = true
+            },
+            showHome() {
+                this.view_moderador = false
             },
             ...mapActions(['atualizarUsuario','logarUsuario', 'listarCursos', 'listarUsuarios', 'listarProjetos'])
         },

@@ -1,14 +1,12 @@
 <template>
-    <div class="col-sm-12 col-md-10 col-md-offset-1 bs-component">
-        <!--
-        Quando o usuário já estiver submetido as bancas
-        -->
+    <div class="col-sm-12 col-md-10 col-md-offset-1 bs-component" v-if="alocado">
+
         <div class="bs-component">
             <div class="jumbotron">
                 <h3>Olá {{ usuario.nome }}</h3>
-                <p>Você já informou à instituição as datas que você terá disponibidade de compor uma banca na(s) área(s) de seu interesse. Aguarde o contato do moderador para saber quais bancas foram validadas para você.</p>
+                <p>Você já informou à instituição as bancas que você terá disponibidade de examinar. Aguarde o contato do moderador para saber quais bancas foram validadas para você.</p>
                 <p>
-                    <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa  fa-calendar-check-o"></i> Suas datas</a>
+                    <a class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"><i class="fa fa-book" aria-hidden="true"></i> Suas bancas</a>
                 </p>
             </div>
         </div>
@@ -19,21 +17,16 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Suas datas</h4>
+                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-book" aria-hidden="true"></i> Suas bancas</h4>
                     </div>
                     <div class="modal-body">
                         <div class="bs-component">
                             <ul class="list-group">
-                                <li class="list-group-item auto" v-for="data in datas_disponiveis">
-                                    <span class="badge">{{ getCountBancas(data) }}</span>
-                                    <i class="fa fa-calendar-check-o fa-md"></i> <strong>{{ convertDate(data) }}</strong><hr>
-
-                                    <span v-for="proj in getBancasData(data)">
-                                        <span class="block">
-                                            <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                            {{ convertTime(proj.hora) }} - {{ proj.nome }}
-                                        </span>
-                                    </span>
+                                <li class="list-group-item auto" v-for="projeto in projetos_escolhidos">
+                                    <strong>{{ projeto.nome }}</strong> -
+                                    <span><i class="fa fa-calendar" aria-hidden="true"></i> {{ convertDate(projeto.data) }}</span> -
+                                    <span><i class="fa fa-clock-o" aria-hidden="true"></i> {{ convertTime(projeto.hora) }}</span> -
+                                    <span><i class="fa fa-university" aria-hidden="true"></i> Sala: {{ projeto.sala }}</span>
                                 </li>
                             </ul>
                         </div>
@@ -49,29 +42,36 @@
 
 <script>
     import { mapState } from 'vuex'
-    import { userUrl, getHeader } from '../../config'
+    import { userUrl, getProfessor, listaProjetos, getHeader } from '../../config'
 
     export default{
         data(){
             return{
-                datas_disponiveis: []
+                bancas_escolhidas: [],
+                projetos_escolhidos: [],
+                listarBancas: []
             }
         },
 
         beforeMount (to, from, next) {
-            this.$http.get(userUrl + '/' + this.usuario.id + '/alocado', { headers: getHeader() })
-                    .then((res) => {
-                        const checar = res.body
 
-                        if(checar.msg === "checked") {
-                            this.datas_disponiveis = checar.datas.datas_disponiveis
-                        } else {
-                            this.alocado = false
+            this.$http.get(getProfessor + '/' + this.usuario.id + '/bancas', { headers: getHeader() })
+                    .then((res) => {
+                        this.bancas_escolhidas = res.body.professor_bancas
+
+                        for (var i = 0; i < this.projetos.length; i++) {
+                            var id = this.projetos[i].id
+
+                            for(var j = 0; j < this.bancas_escolhidas.length; j++) {
+                                if(id === this.bancas_escolhidas[j].banca)
+                                    this.projetos_escolhidos.push(this.projetos[i])
+                            }
                         }
 
                     }, (res) => {
                         console.log(res)
                     })
+
         },
 
         methods: {
@@ -79,31 +79,6 @@
             convertDate(inputFormat) {
                 var str = inputFormat.split('-')
                 return str.reverse().join('/')
-            },
-
-            getCountBancas(data) {
-                var arr = 0
-                for (var i = 0; i < this.projetos.length; i++) {
-                    if(this.projetos[i].data === data)
-                        arr++
-                }
-                if(arr === 1)
-                    return arr + ' banca'
-                if(arr > 1)
-                    return arr + ' bancas'
-
-                return 'Sem bancas';
-            },
-
-            getBancasData(data) {
-                var arr = []
-
-                for (var i = 0; i < this.projetos.length; i++) {
-                    if(this.projetos[i].data === data)
-                        arr.push(this.projetos[i])
-                }
-
-                return this.ordenaDatas(arr)
             },
 
             convertTime(inputFormat) {
@@ -115,12 +90,17 @@
             ordenaDatas(datas) {
                 return datas.sort()
             },
+
+            getProjetosBanca () {
+                return this.projetos
+            }
         },
 
         computed: mapState({
             usuario: 'usuario',
             usuarioLogado: 'usuarioLogado',
-            projetos: 'projetos'
+            projetos: 'projetos',
+            alocado: 'alocado'
         })
     }
 </script>

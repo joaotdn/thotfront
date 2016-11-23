@@ -61,6 +61,7 @@
                                             email: res.body.user.email,
                                             id: res.body.user.id,
                                             role: res.body.user.role,
+                                            area_primaria: res.body.user.area_primaria,
                                         }
                                         this.atualizarUsuario(usuario)
                                         this.logarUsuario(true)

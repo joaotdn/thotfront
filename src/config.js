@@ -7,10 +7,12 @@ export const loginUrl = apiDomain + 'authenticate'
 export const userUrl = apiDomain + 'user'
 export const teacherUrl = apiDomain + 'teachers'
 export const novoProfessor = apiDomain + 'novo/professor'
+export const getProfessor = apiDomain + 'professor'
 
 /**
  * Cursos
  */
+export const getCurso = apiDomain + 'curso'
 export const novoCurso = apiDomain + 'novo/curso'
 export const listaCursos = apiDomain + 'cursos'
 export const removeCurso = apiDomain + 'delete/curso/'

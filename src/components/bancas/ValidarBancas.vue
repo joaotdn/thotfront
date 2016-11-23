@@ -1,9 +1,8 @@
 <template>
-    <div>
+    <div v-if="usuario.role === 'professor-moderador'">
         <h4>Bancas sugeridas</h4>
         <table class="table table-bordered table-hover">
             <caption>Click no botão verde para selecionar as bancas e gerar a tabela com as apresentações</caption>
-
             <thead>
             <tr>
                 <th></th>
@@ -19,7 +18,8 @@
             </thead>
 
             <tbody>
-            <tr>
+
+            <tr class="success">
                 <th><input type="checkbox"></th>
                 <th scope="row">12/10/2016</th>
                 <td>18:30</td>
@@ -27,60 +27,190 @@
                 <td>Thot Auto Banc</td>
                 <td>João Teodoro Dantas Neto</td>
                 <td>Jefferson Barbosa</td>
-                <td>Rodrigo Fujioka</td>
-                <td>Alvaro George</td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
             </tr>
-            <tr>
+
+            <tr class="success">
                 <th><input type="checkbox"></th>
                 <th scope="row">13/10/2016</th>
-                <td>18:30</td>
+                <td>19:30</td>
                 <td>F120</td>
-                <td>Sistema de Auto Atendimento</td>
-                <td>José Wanderlúcio Lira</td>
-                <td>Jefferson Barbosa</td>
-                <td>Rodrigo Fujioka</td>
-                <td>Alvaro George</td>
-            </tr><tr>
-                <th><input type="checkbox"></th>
-                <th scope="row">12/10/2016</th>
-                <td>18:30</td>
-                <td>F120</td>
-                <td>Thot Auto Banc</td>
-                <td>João Teodoro Dantas Neto</td>
-                <td>Jefferson Barbosa</td>
-                <td>Rodrigo Fujioka</td>
-                <td>Alvaro George</td>
-            </tr><tr>
-                <th><input type="checkbox"></th>
-                <th scope="row">12/10/2016</th>
-                <td>18:30</td>
-                <td>F120</td>
-                <td>Thot Auto Banc</td>
-                <td>João Teodoro Dantas Neto</td>
-                <td>Jefferson Barbosa</td>
-                <td>Rodrigo Fujioka</td>
-                <td>Alvaro George</td>
-            </tr><tr>
-                <th><input type="checkbox"></th>
-                <th scope="row">12/10/2016</th>
-                <td>18:30</td>
-                <td>F120</td>
-                <td>Thot Auto Banc</td>
-                <td>João Teodoro Dantas Neto</td>
-                <td>Jefferson Barbosa</td>
-                <td>Rodrigo Fujioka</td>
-                <td>Alvaro George</td>
-            </tr><tr>
-                <th><input type="checkbox"></th>
-                <th scope="row">12/10/2016</th>
-                <td>18:30</td>
-                <td>F120</td>
-                <td>Thot Auto Banc</td>
-                <td>João Teodoro Dantas Neto</td>
-                <td>Jefferson Barbosa</td>
-                <td>Rodrigo Fujioka</td>
-                <td>Alvaro George</td>
+                <td>Jogo da Velha 3D</td>
+                <td>Jim Morrison da Silva</td>
+                <td>Moisés da Silva</td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
             </tr>
+
+            <tr class="warning">
+                <th><input type="checkbox"></th>
+                <th scope="row">14/10/2016</th>
+                <td>14:30</td>
+                <td>RR20</td>
+                <td>Automação de Estoque</td>
+                <td>Maria Fernandes de Sá</td>
+                <td>Wallace Rolim</td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="danger">
+                <th><input type="checkbox"></th>
+                <th scope="row">14/10/2016</th>
+                <td>15:30</td>
+                <td>RR20</td>
+                <td>Sistema Comercial</td>
+                <td>Cássio Cunha Dutra</td>
+                <td>Walter Santos</td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="success">
+                <th><input type="checkbox"></th>
+                <th scope="row">16/10/2016</th>
+                <td>15:30</td>
+                <td>RR20</td>
+                <td>Sistema Riqueza</td>
+                <td>Ana Paula Souza</td>
+                <td>Rodrigo Fujioka</td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr class="warning">
+                <th><input type="checkbox"></th>
+                <th scope="row">16/10/2016</th>
+                <td>15:30</td>
+                <td>RR20</td>
+                <td>Sistema para Bancos</td>
+                <td>Marcilio Damassena Ferreira</td>
+                <td>Thiago Japiassu</td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+                <td>
+                    <select>
+                        <option></option>
+                        <option>Rodrigo Fujioka</option>
+                        <option>Moisés da Silva</option>
+                        <option>Walter Santos</option>
+                        <option>Leonardo Barbosa</option>
+                        <option>Renato Russo</option>
+                        <option>Mauricio Samy</option>
+                    </select>
+                </td>
+            </tr>
+
             </tbody>
 
         </table>
@@ -98,6 +228,20 @@
 </template>
 
 <script>
-    export default{
+    import { mapState } from 'vuex'
+
+    export default {
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                if(vm.usuario.role === 'professor' || vm.usuario.role === 'admin')
+                    vm.$route.push({ name: 'bancas_enviadas' })
+            })
+        },
+
+        computed: mapState({
+            usuario: 'usuario',
+            usuarioLogado: 'usuarioLogado',
+            projetos: 'projetos'
+        })
     }
 </script>
