@@ -139,7 +139,7 @@
                       })
             },
             updateUser(id) {
-
+                console.log(this.professor)
                this.$http.put(userUrl + '/update/' + id, {
 
                    id: id,

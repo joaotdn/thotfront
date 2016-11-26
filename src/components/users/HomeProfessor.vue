@@ -146,6 +146,7 @@
 
                             var c = this.projetosUsuario[i].curso_id
 
+                            // Armazena os projetos dos cursos
                             if(this.projetosCursos.indexOf(c) === -1 && typeof c !== 'undefined') {
                                 this.projetosCursos.push(c)
                             }

@@ -1,11 +1,15 @@
 <template>
     <div v-if="usuario.role === 'professor-moderador'">
+
+<!--<ul>-->
+    <!--<li v-for="projeto in projetos">{{ projeto.examinador_1 }} - {{ projeto.examinador_2 }}</li>-->
+<!--</ul>-->
         <h4>Bancas sugeridas</h4>
+
         <table class="table table-bordered table-hover">
             <caption>Click no botão verde para selecionar as bancas e gerar a tabela com as apresentações</caption>
             <thead>
             <tr>
-                <th></th>
                 <th>Data</th>
                 <th>Hora</th>
                 <th>Sala</th>
@@ -19,194 +23,23 @@
 
             <tbody>
 
-            <tr class="success">
-                <th><input type="checkbox"></th>
-                <th scope="row">12/10/2016</th>
-                <td>18:30</td>
-                <td>F120</td>
-                <td>Thot Auto Banc</td>
-                <td>João Teodoro Dantas Neto</td>
-                <td>Jefferson Barbosa</td>
+            <tr v-for="projeto in projetos" :class="(projeto.examinador_1 !== null && projeto.examinador_2 !== null) ? 'success' : (projeto.examinador_1 !== null || projeto.examinador_2 !== null) ? 'warning' : 'danger'">
+                <th scope="row">{{ convertDate(projeto.data) }}</th>
+                <td>{{ convertTime(projeto.hora) }}</td>
+                <td>{{ projeto.sala }}</td>
+                <td>{{ projeto.nome }}</td>
+                <td>{{ projeto.aluno }}</td>
+                <td>{{ getProfessor( projeto.orientador_id ) }}</td>
                 <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
+                    <select v-model="projeto.examinador_1" @change="alterExaminadorBanca(projeto.examinador_1,projeto.id,'ex_1')">
+                        <option :value="null"></option>
+                        <option v-for="usuario in usuarios" :value="usuario.id">{{ usuario.name }}</option>
                     </select>
                 </td>
                 <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr class="success">
-                <th><input type="checkbox"></th>
-                <th scope="row">13/10/2016</th>
-                <td>19:30</td>
-                <td>F120</td>
-                <td>Jogo da Velha 3D</td>
-                <td>Jim Morrison da Silva</td>
-                <td>Moisés da Silva</td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr class="warning">
-                <th><input type="checkbox"></th>
-                <th scope="row">14/10/2016</th>
-                <td>14:30</td>
-                <td>RR20</td>
-                <td>Automação de Estoque</td>
-                <td>Maria Fernandes de Sá</td>
-                <td>Wallace Rolim</td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr class="danger">
-                <th><input type="checkbox"></th>
-                <th scope="row">14/10/2016</th>
-                <td>15:30</td>
-                <td>RR20</td>
-                <td>Sistema Comercial</td>
-                <td>Cássio Cunha Dutra</td>
-                <td>Walter Santos</td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr class="success">
-                <th><input type="checkbox"></th>
-                <th scope="row">16/10/2016</th>
-                <td>15:30</td>
-                <td>RR20</td>
-                <td>Sistema Riqueza</td>
-                <td>Ana Paula Souza</td>
-                <td>Rodrigo Fujioka</td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-            </tr>
-
-            <tr class="warning">
-                <th><input type="checkbox"></th>
-                <th scope="row">16/10/2016</th>
-                <td>15:30</td>
-                <td>RR20</td>
-                <td>Sistema para Bancos</td>
-                <td>Marcilio Damassena Ferreira</td>
-                <td>Thiago Japiassu</td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
-                    </select>
-                </td>
-                <td>
-                    <select>
-                        <option></option>
-                        <option>Rodrigo Fujioka</option>
-                        <option>Moisés da Silva</option>
-                        <option>Walter Santos</option>
-                        <option>Leonardo Barbosa</option>
-                        <option>Renato Russo</option>
-                        <option>Mauricio Samy</option>
+                    <select v-model="projeto.examinador_2" @change="alterExaminadorBanca(projeto.examinador_2,projeto.id,'ex_2')">
+                        <option :value="null"></option>
+                        <option v-for="usuario in usuarios" :value="usuario.id">{{ usuario.name }}</option>
                     </select>
                 </td>
             </tr>
@@ -229,8 +62,16 @@
 
 <script>
     import { mapState } from 'vuex'
+    import { getProfessor, userUrl, listaProjetos, getHeader } from '../../config'
+    import { convertDate, convertTime, ordenaDatas } from '../../libs/utils'
 
     export default {
+        data() {
+          return {
+              professores: []
+          }
+        },
+
         beforeRouteEnter (to, from, next) {
             next(vm => {
                 if(vm.usuario.role === 'professor' || vm.usuario.role === 'admin')
@@ -238,10 +79,52 @@
             })
         },
 
+        beforeMount() {
+            for (var i = 0; i < this.usuarios.length; i++) {
+                this.professores.push(this.usuarios[i].teachers)
+            }
+            this.getAreaPrimaria()
+        },
+
+        methods: {
+            convertTime,
+            convertDate,
+            ordenaDatas,
+            getProfessor(id) {
+                for (var i = 0; i < this.usuarios.length; i++) {
+                    if(id === this.usuarios[i].id)
+                        return this.usuarios[i].name
+                }
+            },
+            getAreaPrimaria(id) {
+                for(var i = 0; i < this.professores.length; i++) {
+                    if(id === this.professores[i][0].teacherable_id)
+                        return this.professores[i][0].area_primaria
+                }
+            },
+            getAreaSecundaria(id) {
+                for(var i = 0; i < this.professores.length; i++) {
+                    if(id === this.professores[i][0].teacherable_id)
+                        return this.professores[i][0].area_secundaria
+                }
+            },
+            alterExaminadorBanca(examinador_selected, projeto_id, posicao) {
+                this.$http.post(listaProjetos + '/alterar_examinador',{
+                    examinador: examinador_selected,
+                    projeto: projeto_id,
+                    pos: posicao
+                }, { headers: getHeader() })
+                        .then((res) => {
+                            console.log(res)
+                        })
+            }
+        },
+
         computed: mapState({
             usuario: 'usuario',
             usuarioLogado: 'usuarioLogado',
-            projetos: 'projetos'
+            projetos: 'projetos',
+            usuarios: 'usuarios'
         })
     }
 </script>
